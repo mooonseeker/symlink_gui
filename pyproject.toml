@@ -1,0 +1,23 @@
+[project]
+name = "symlink-gui"
+version = "0.2.1"
+description = "Simple GUI for creating symlink in Windows."
+authors = [
+    {name = "mooonseeker",email = "zhushengtao1996@outlook.com"}
+]
+license = "LICENSE"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "PyQt6",
+]
+
+[tool.poetry]
+package-mode = false
+
+[tool.poetry.requires-plugins]
+poetry-plugin-export = ">=1.8"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
