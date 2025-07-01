@@ -1,6 +1,6 @@
 import os
 
-from PyQt6.QtCore import QDir, QMimeData, Qt, pyqtSignal
+from PyQt6.QtCore import QDir, QMimeData, QModelIndex, Qt, pyqtSignal
 from PyQt6.QtGui import (
     QDrag,
     QDragEnterEvent,
@@ -24,12 +24,9 @@ class FileTreeView(QTreeView):
         self._model = QFileSystemModel()
         self._model.setFilter(QDir.Filter.AllEntries | QDir.Filter.NoDotAndDotDot)
 
-        # 设置根路径为第一个驱动盘
+        # 设置根路径为空字符串以显示所有驱动盘
+        self._model.setRootPath("")
         drives = QDir.drives()
-        if drives:
-            self._model.setRootPath(drives[0].path())
-        else:
-            self._model.setRootPath("")
 
         self.setModel(self._model)
 
@@ -54,7 +51,14 @@ class FileTreeView(QTreeView):
                     self.setExpanded(index, False)
 
     def set_root_path(self, path: str):
-        if not path or not os.path.exists(path):
+        # 处理空路径情况 - 显示所有驱动器
+        if path == "":
+            self._model.setRootPath("")
+            self.setRootIndex(QModelIndex())  # 清除根索引以显示所有驱动器
+            return
+
+        # 原有非空路径处理逻辑保持不变
+        if not os.path.exists(path):
             return
 
         # 统一处理文件和文件夹：都导航到父目录并选中项目

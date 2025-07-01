@@ -83,8 +83,8 @@ class MainWindow(QMainWindow):
                 tree_view.set_root_path(parent_path)
 
     def reset_view(self, tree_view):
-        """重置视图到初始目录"""
-        tree_view.set_root_path(os.path.expanduser("~"))
+        """重置视图到初始目录（显示所有驱动器）"""
+        tree_view.set_root_path("")
 
     @pyqtSlot(str, str)
     def handle_internal_drop(self, source_path, target_path):

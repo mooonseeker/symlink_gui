@@ -1,4 +1,4 @@
-# Mklink-GUI 应用程序架构计划 (PyQt6 实现版)
+# Symlink-GUI
 
 ## 1. 概述
 
